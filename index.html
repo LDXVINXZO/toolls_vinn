@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDXVIN Smooth Neon</title>
+
+<style>
+:root{
+    --neon1:#00f2ff;
+    --neon2:#ff00ff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top, #00f2ff22, transparent),
+        linear-gradient(160deg,#040014,#09002b,#120044);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ===== FADE ANIMATION ===== */
+.fade{
+    opacity:0;
+    transform:translateY(40px);
+    animation:fadeUp .9s ease forwards;
+}
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ===== WELCOME ===== */
+.welcome{
+    text-align:center;
+    margin:90px 20px 50px;
+}
+.welcome h1{
+    font-size:3rem;
+    letter-spacing:3px;
+    text-shadow:0 0 18px var(--neon1),0 0 40px var(--neon2);
+}
+.welcome p{
+    opacity:.8;
+    margin-top:8px;
+}
+
+/* ===== CARD ===== */
+.card{
+    max-width:900px;
+    margin:50px auto;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
+    border-radius:28px;
+    padding:28px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+    transition:transform .4s ease, box-shadow .4s ease;
+}
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:22px;
+    color:var(--neon1);
+}
+
+/* ===== INPUT ===== */
+input, textarea{
+    width:100%;
+    padding:15px 18px;
+    border-radius:16px;
+    border:none;
+    margin-bottom:16px;
+    font-size:1rem;
+    outline:none;
+    transition:box-shadow .3s ease;
+}
+input:focus, textarea:focus{
+    box-shadow:0 0 0 2px var(--neon1);
+}
+
+/* ===== BUTTON ===== */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(90deg,var(--neon1),var(--neon2));
+    font-weight:600;
+    cursor:pointer;
+    transition:transform .2s ease, opacity .2s ease;
+}
+button:active{
+    transform:scale(.96);
+}
+button:hover{opacity:.95}
+
+/* ===== RESULT ===== */
+.result{
+    margin-top:24px;
+    text-align:center;
+    animation:fadeUp .6s ease;
+}
+.result img{
+    max-width:100%;
+    border-radius:22px;
+    box-shadow:0 0 35px var(--neon2);
+    animation:fadeUp .6s ease;
+}
+
+/* ===== DOWNLOAD ===== */
+.download{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 22px;
+    border-radius:14px;
+    background:var(--neon1);
+    color:black;
+    text-decoration:none;
+    font-weight:600;
+    transition:transform .2s ease;
+}
+.download:hover{
+    transform:translateY(-2px);
+}
+
+/* ===== MUSIC ===== */
+.music{
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--neon1),var(--neon2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 25px var(--neon1);
+    cursor:pointer;
+    transition:transform .25s ease;
+}
+.music:active{
+    transform:scale(.9);
+}
+.music span{
+    font-size:1.4rem;
+    color:black;
+}
+
+select{
+    position:fixed;
+    bottom:92px;
+    right:22px;
+    padding:8px 10px;
+    border-radius:12px;
+    border:none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+    .welcome h1{font-size:2.3rem;}
+    .card{margin:40px 14px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="welcome fade">
+    <h1>WELCOME LDXVIN</h1>
+    <p>Smooth Neon • iOS Feel • Premium UI</p>
+</div>
+
+<div class="card fade">
+    <h2>📱 Fake iPhone Chat</h2>
+    <input id="chatText" placeholder="Masukkan teks chat iPhone...">
+    <button onclick="generateChat()">Generate</button>
+    <div class="result" id="chatResult"></div>
+</div>
+
+<div class="card fade">
+    <h2>🚀 Spam NGL</h2>
+    <input id="nglLink" placeholder="Link NGL">
+    <textarea id="nglText" placeholder="Pesan"></textarea>
+    <input id="nglCount" type="number" placeholder="Jumlah kirim">
+    <button onclick="sendNGL()">Kirim</button>
+    <div class="result" id="nglResult"></div>
+</div>
+
+<select id="song">
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Neon</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Cyber</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Future</option>
+</select>
+
+<div class="music" onclick="toggleMusic()">
+    <span id="icon">▶</span>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+/* ===== MUSIC ===== */
+const audio = document.getElementById("audio");
+const icon = document.getElementById("icon");
+const song = document.getElementById("song");
+
+song.onchange = ()=>{
+    audio.src = song.value;
+    audio.play();
+    icon.textContent="⏸";
+};
+
+function toggleMusic(){
+    if(audio.paused){
+        if(!audio.src) audio.src = song.value;
+        audio.play();
+        icon.textContent="⏸";
+    }else{
+        audio.pause();
+        icon.textContent="▶";
+    }
+}
+
+/* ===== TIME ===== */
+function statusTime(){
+    const d = new Date();
+    return String(d.getHours()).padStart(2,'0')+"."+String(d.getMinutes()).padStart(2,'0');
+}
+function randomChat(){
+    const t=["12.00","13.58","07.40","01.21"];
+    return t[Math.floor(Math.random()*t.length)];
+}
+
+/* ===== FAKE IPHONE ===== */
+function generateChat(){
+    const text = chatText.value;
+    if(!text) return alert("Isi teks dulu!");
+
+    const url = `https://api.zenzxz.my.id/api/maker/fakechatiphone?text=${encodeURIComponent(text)}&chatime=${randomChat()}&statusbartime=${statusTime()}`;
+
+    chatResult.innerHTML = `
+        <img src="${url}">
+        <br>
+        <a class="download" href="${url}" download>⬇ Download</a>
+    `;
+}
+
+/* ===== NGL ===== */
+async function sendNGL(){
+    const link = nglLink.value;
+    const text = nglText.value;
+    const count = Number(nglCount.value);
+    if(!link || !text || !count) return alert("Lengkapi semua!");
+
+    nglResult.textContent="⏳ Mengirim...";
+    for(let i=1;i<=count;i++){
+        await fetch("https://api.siputzx.my.id/api/tools/ngl",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "accept":"*/*"
+            },
+            body:JSON.stringify({link,text})
+        });
+        nglResult.textContent=`✅ ${i}/${count} terkirim`;
+    }
+}
+</script>
+
+</body>
+</html>
