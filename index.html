@@ -2,289 +2,286 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<title>LDXVIN PREMIUM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LDXVIN Smooth Neon</title>
 
 <style>
 :root{
-    --neon1:#00f2ff;
-    --neon2:#ff00ff;
+--accent:#00e5ff;
+--ease:cubic-bezier(.4,0,.2,1);
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 
 body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at top, #00f2ff22, transparent),
-        linear-gradient(160deg,#040014,#09002b,#120044);
-    color:white;
-    overflow-x:hidden;
+background:radial-gradient(circle at top,#1c1c1c,#000 60%);
+color:#fff;
+min-height:100vh;
 }
 
-/* ===== FADE ANIMATION ===== */
-.fade{
-    opacity:0;
-    transform:translateY(40px);
-    animation:fadeUp .9s ease forwards;
+/* ===== ANIMATION ===== */
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes scale{from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== SPLASH ===== */
+#splash{
+position:fixed;inset:0;
+display:flex;align-items:center;justify-content:center;
+background:radial-gradient(circle,#222,#000);
+z-index:999;
 }
-@keyframes fadeUp{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.login-box{
+background:linear-gradient(145deg,#0b0b0b,#1f1f1f);
+padding:45px;border-radius:26px;width:330px;
+text-align:center;
+box-shadow:0 0 60px rgba(0,229,255,.25);
+animation:scale .8s var(--ease);
+}
+.login-box h1{letter-spacing:6px;margin-bottom:22px}
+.login-box input{
+width:100%;padding:15px;border-radius:16px;border:none;
+background:#111;color:#fff;text-align:center;
+}
+.login-box button{
+margin-top:18px;padding:14px;width:100%;
+border:none;border-radius:18px;
+background:linear-gradient(135deg,var(--accent),#0072ff);
+color:#000;font-weight:700;
+}
+.loader{
+margin:22px auto 0;width:44px;height:44px;
+border:5px solid #222;border-top:5px solid var(--accent);
+border-radius:50%;animation:spin .8s linear infinite;display:none;
 }
 
-/* ===== WELCOME ===== */
-.welcome{
-    text-align:center;
-    margin:90px 20px 50px;
+/* ===== MAIN ===== */
+.container{
+display:none;
+padding:30px;
+max-width:1100px;
+margin:auto;
+animation:fade .8s var(--ease);
 }
-.welcome h1{
-    font-size:3rem;
-    letter-spacing:3px;
-    text-shadow:0 0 18px var(--neon1),0 0 40px var(--neon2);
-}
-.welcome p{
-    opacity:.8;
-    margin-top:8px;
+h1{
+text-align:center;
+margin-bottom:35px;
+letter-spacing:3px;
+text-shadow:0 0 18px var(--accent);
 }
 
 /* ===== CARD ===== */
 .card{
-    max-width:900px;
-    margin:50px auto;
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(18px);
-    border-radius:28px;
-    padding:28px;
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
-    transition:transform .4s ease, box-shadow .4s ease;
+background:linear-gradient(145deg,#0c0c0c,#181818);
+border-radius:26px;
+padding:25px;
+margin-bottom:28px;
+box-shadow:0 25px 60px rgba(0,0,0,.7);
+animation:scale .8s var(--ease);
 }
-.card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 30px 80px rgba(0,0,0,.6);
+input,textarea,button{
+width:100%;padding:14px;
+border-radius:16px;border:none;
+margin-top:12px;
+background:#0e0e0e;color:#fff;
 }
-
-.card h2{
-    text-align:center;
-    margin-bottom:22px;
-    color:var(--neon1);
-}
-
-/* ===== INPUT ===== */
-input, textarea{
-    width:100%;
-    padding:15px 18px;
-    border-radius:16px;
-    border:none;
-    margin-bottom:16px;
-    font-size:1rem;
-    outline:none;
-    transition:box-shadow .3s ease;
-}
-input:focus, textarea:focus{
-    box-shadow:0 0 0 2px var(--neon1);
-}
-
-/* ===== BUTTON ===== */
 button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:18px;
-    background:linear-gradient(90deg,var(--neon1),var(--neon2));
-    font-weight:600;
-    cursor:pointer;
-    transition:transform .2s ease, opacity .2s ease;
-}
-button:active{
-    transform:scale(.96);
-}
-button:hover{opacity:.95}
-
-/* ===== RESULT ===== */
-.result{
-    margin-top:24px;
-    text-align:center;
-    animation:fadeUp .6s ease;
-}
-.result img{
-    max-width:100%;
-    border-radius:22px;
-    box-shadow:0 0 35px var(--neon2);
-    animation:fadeUp .6s ease;
+background:linear-gradient(135deg,var(--accent),#0072ff);
+color:#000;font-weight:700;
 }
 
-/* ===== DOWNLOAD ===== */
-.download{
-    display:inline-block;
-    margin-top:18px;
-    padding:12px 22px;
-    border-radius:14px;
-    background:var(--neon1);
-    color:black;
-    text-decoration:none;
-    font-weight:600;
-    transition:transform .2s ease;
+/* ===== IMESSAGE ===== */
+.fake-preview{
+background:#000;border-radius:24px;
+padding:22px;margin-top:15px;text-align:center;
+animation:fade .6s var(--ease);
 }
-.download:hover{
-    transform:translateY(-2px);
+.fake-loading{
+width:60px;height:60px;
+border:6px solid #222;border-top:6px solid var(--accent);
+border-radius:50%;
+margin:35px auto;
+animation:spin .8s linear infinite;
+}
+.iphone-frame{
+position:relative;
+max-width:320px;
+margin:auto;
+padding:14px;
+border-radius:42px;
+background:#000;
+box-shadow:0 0 50px rgba(0,229,255,.45);
+display:none;
+animation:scale .6s var(--ease);
+}
+.iphone-frame::before{
+content:"";
+position:absolute;
+top:7px;left:50%;
+transform:translateX(-50%);
+width:90px;height:18px;
+background:#111;border-radius:20px;
+}
+.iphone-frame img{width:100%;border-radius:30px}
+
+/* ===== FULLSCREEN ===== */
+.fullscreen{
+position:fixed;inset:0;
+background:#000;
+display:flex;align-items:center;justify-content:center;
+z-index:9999;
+animation:fade .4s var(--ease);
 }
 
 /* ===== MUSIC ===== */
-.music{
-    position:fixed;
-    bottom:22px;
-    right:22px;
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--neon1),var(--neon2));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 0 25px var(--neon1);
-    cursor:pointer;
-    transition:transform .25s ease;
-}
-.music:active{
-    transform:scale(.9);
-}
-.music span{
-    font-size:1.4rem;
-    color:black;
+.music{position:fixed;right:18px;bottom:85px}
+.music button{width:58px;height:58px;border-radius:50%;font-size:22px}
+#musicPopup{
+position:fixed;right:90px;bottom:95px;
+background:#111;padding:15px;border-radius:16px;
+display:none;animation:scale .4s var(--ease);
 }
 
-select{
-    position:fixed;
-    bottom:92px;
-    right:22px;
-    padding:8px 10px;
-    border-radius:12px;
-    border:none;
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:600px){
-    .welcome h1{font-size:2.3rem;}
-    .card{margin:40px 14px;}
+footer{
+text-align:center;
+margin:50px 0 20px;
+opacity:.55;
+letter-spacing:2px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="welcome fade">
-    <h1>WELCOME LDXVIN</h1>
-    <p>Smooth Neon • iOS Feel • Premium UI</p>
+<!-- SPLASH -->
+<div id="splash">
+  <div class="login-box">
+    <h1>LDXVIN</h1>
+    <input id="passInput" placeholder="ENTER PASS">
+    <button onclick="login()">UNLOCK</button>
+    <div class="loader" id="loader"></div>
+  </div>
 </div>
 
-<div class="card fade">
-    <h2>📱 Fake iPhone Chat</h2>
-    <input id="chatText" placeholder="Masukkan teks chat iPhone...">
-    <button onclick="generateChat()">Generate</button>
-    <div class="result" id="chatResult"></div>
+<!-- MAIN -->
+<div class="container" id="main">
+<h1>WELCOME<br>LDXVIN XZO</h1>
+
+<!-- SPAM NGL -->
+<div class="card">
+<h2>🔥 SPAM NGL</h2>
+<input id="nglLink" placeholder="https://ngl.link/username">
+<textarea id="nglText" placeholder="Pesan NGL"></textarea>
+<input id="nglCount" type="number" placeholder="Jumlah Kirim">
+<button onclick="spamNGL()">KIRIM</button>
+<div id="nglResult"></div>
 </div>
 
-<div class="card fade">
-    <h2>🚀 Spam NGL</h2>
-    <input id="nglLink" placeholder="Link NGL">
-    <textarea id="nglText" placeholder="Pesan"></textarea>
-    <input id="nglCount" type="number" placeholder="Jumlah kirim">
-    <button onclick="sendNGL()">Kirim</button>
-    <div class="result" id="nglResult"></div>
+<!-- IMESSAGE -->
+<div class="card">
+<h2>📱 iMessage Generator</h2>
+<input id="fakeText" placeholder="Isi teks iMessage">
+<button onclick="generateFake()">GENERATE</button>
+
+<div class="fake-preview" id="fakeBox" style="display:none">
+  <div class="fake-loading" id="fakeLoading"></div>
+  <div class="iphone-frame" id="iphoneFrame">
+    <img id="fakeImg">
+  </div>
+  <button onclick="openFullscreen()">FULLSCREEN</button>
+  <a id="download" download="imessage.png">
+    <button>DOWNLOAD</button>
+  </a>
+</div>
 </div>
 
-<select id="song">
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Neon</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Cyber</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Future</option>
+<footer>by ldxvin 2025</footer>
+</div>
+
+<!-- MUSIC -->
+<div class="music">
+<button onclick="toggleMusic()">🎵</button>
+</div>
+<div id="musicPopup">
+<select onchange="playMusic(this.value)">
+<option value="">Pilih Lagu</option>
+<option value="0">Music 1</option>
+<option value="1">Music 2</option>
+<option value="2">Music 3</option>
 </select>
-
-<div class="music" onclick="toggleMusic()">
-    <span id="icon">▶</span>
 </div>
-
 <audio id="audio"></audio>
 
 <script>
-/* ===== MUSIC ===== */
-const audio = document.getElementById("audio");
-const icon = document.getElementById("icon");
-const song = document.getElementById("song");
+/* LOGIN */
+function login(){
+if(passInput.value!=="LDXVIN") return alert("❌ PASS SALAH");
+loader.style.display="block";
+setTimeout(()=>{
+splash.style.display="none";
+main.style.display="block";
+},1000);
+}
 
-song.onchange = ()=>{
-    audio.src = song.value;
-    audio.play();
-    icon.textContent="⏸";
-};
+/* SPAM NGL */
+async function spamNGL(){
+const l=nglLink.value.trim(),
+t=nglText.value.trim(),
+c=parseInt(nglCount.value);
+if(!l||!t||!c) return alert("Lengkapi data!");
+nglResult.innerHTML="⏳ 0 / "+c;
+for(let i=1;i<=c;i++){
+await fetch(
+"https://api.siputzx.my.id/api/tools/ngl?link="
++encodeURIComponent(l)+"&text="+encodeURIComponent(t)+"&_="+Date.now()
+);
+nglResult.innerHTML=`✅ ${i} / ${c}`;
+await new Promise(r=>setTimeout(r,1200));
+}
+nglResult.innerHTML="🔥 SELESAI";
+}
 
+/* IMESSAGE */
+function generateFake(){
+const t=fakeText.value.trim();
+if(!t) return alert("Isi teks!");
+fakeBox.style.display="block";
+fakeLoading.style.display="block";
+iphoneFrame.style.display="none";
+const api="https://api.asuma.my.id/v1/maker/imessage?text="
++encodeURIComponent(t)+"&_="+Date.now();
+fakeImg.onload=()=>{
+fakeLoading.style.display="none";
+iphoneFrame.style.display="block";
+download.href=api;
+}
+fakeImg.src=api;
+}
+
+/* FULLSCREEN */
+function openFullscreen(){
+const f=document.createElement("div");
+f.className="fullscreen";
+f.innerHTML=`<img src="${fakeImg.src}" style="max-width:92%;border-radius:30px">`;
+f.onclick=()=>f.remove();
+document.body.appendChild(f);
+}
+
+/* MUSIC */
+const musicList=[
+"https://files.catbox.moe/4t8m4x.mp3",
+"https://files.catbox.moe/1k7b5m.mp3",
+"https://files.catbox.moe/zp1gtt.mp3"
+];
 function toggleMusic(){
-    if(audio.paused){
-        if(!audio.src) audio.src = song.value;
-        audio.play();
-        icon.textContent="⏸";
-    }else{
-        audio.pause();
-        icon.textContent="▶";
-    }
+musicPopup.style.display=musicPopup.style.display==="block"?"none":"block";
 }
-
-/* ===== TIME ===== */
-function statusTime(){
-    const d = new Date();
-    return String(d.getHours()).padStart(2,'0')+"."+String(d.getMinutes()).padStart(2,'0');
-}
-function randomChat(){
-    const t=["12.00","13.58","07.40","01.21"];
-    return t[Math.floor(Math.random()*t.length)];
-}
-
-/* ===== FAKE IPHONE ===== */
-function generateChat(){
-    const text = chatText.value;
-    if(!text) return alert("Isi teks dulu!");
-
-    const url = `https://api.zenzxz.my.id/api/maker/fakechatiphone?text=${encodeURIComponent(text)}&chatime=${randomChat()}&statusbartime=${statusTime()}`;
-
-    chatResult.innerHTML = `
-        <img src="${url}">
-        <br>
-        <a class="download" href="${url}" download>⬇ Download</a>
-    `;
-}
-
-/* ===== NGL ===== */
-async function sendNGL(){
-    const link = nglLink.value;
-    const text = nglText.value;
-    const count = Number(nglCount.value);
-    if(!link || !text || !count) return alert("Lengkapi semua!");
-
-    nglResult.textContent="⏳ Mengirim...";
-    for(let i=1;i<=count;i++){
-        await fetch("https://api.siputzx.my.id/api/tools/ngl",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "accept":"*/*"
-            },
-            body:JSON.stringify({link,text})
-        });
-        nglResult.textContent=`✅ ${i}/${count} terkirim`;
-    }
+function playMusic(i){
+if(!i)return;
+audio.src=musicList[i];
+audio.play();
 }
 </script>
 
 </body>
-</html>
+    </html>
